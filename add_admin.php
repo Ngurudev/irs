@@ -38,13 +38,13 @@
         TOP BAR CONTENT & NOTIFICATIONS
         *********************************************************************************************************************************************************** -->
         <!--header start-->
-        <?php include 'templates/frontend/header.php'?>
+        <?php include 'resources/templates/frontend/header.php'?>
         <!--header end-->
         <!-- **********************************************************************************************************************************************************
         MAIN SIDEBAR MENU
         *********************************************************************************************************************************************************** -->
         <!--sidebar start-->
-        <?php include 'templates/frontend/sidebar.php'?>
+        <?php include 'resources/templates/frontend/sidebar.php'?>
         <!--sidebar end-->
         <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
@@ -74,9 +74,20 @@
                                 <div class="form-group">
                                     <label class="sr-only" for="exampleInputPassword2">Role</label>
                                     <select name="" id="" class="form-control">
+                                        <option value="0">Department</option>
+                                        <option value="1">Human Resources (HR)</option>
+                                        <option value="2">IT</option>
+                                        <option value="2">Warehouse</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="exampleInputPassword2">Role</label>
+                                    <select name="" id="" class="form-control">
                                         <option value="0">Select Role</option>
-                                        <option value="1">Admin-1</option>
-                                        <option value="2">Admin-2</option>
+                                        <option value="1">Administrator</option>
+                                        <option value="2">Manager</option>
+                                        <option value="2">Supervisor</option>
+                                        <option value="2">Coordinator</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-theme">Add </button>

@@ -1,3 +1,5 @@
+<?php require_once './resources/config.php'?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,22 +40,31 @@
         TOP BAR CONTENT & NOTIFICATIONS
         *********************************************************************************************************************************************************** -->
         <!--header start-->
-        <?php include 'templates/frontend/header.php'?>
+        <?php include 'resources/templates/frontend/header.php'?>
         <!--header end-->
         <!-- **********************************************************************************************************************************************************
         MAIN SIDEBAR MENU
         *********************************************************************************************************************************************************** -->
         <!--sidebar start-->
-        <?php include 'templates/frontend/sidebar.php'?>
+        <?php include 'resources/templates/frontend/sidebar.php'?>
         <!--sidebar end-->
         <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
         <!--main content start-->
-        <?php include 'templates/frontend/admin_content.php'?>
+        <?php
+$uri = "/irs/";
+$uriWithIndex = "/irs/index.php";
+if ($_SERVER['REQUEST_URI'] == $uri || $_SERVER['REQUEST_URI'] == $uriWithIndex) {
+
+ include TEMPLATE_FRONT . "/admin_content.php";
+}
+
+?>
+
         <!--main content end-->
         <!--footer start-->
-        <?php include 'templates/frontend/footer.php'?>
+        <?php include 'resources/templates/frontend/footer.php'?>
         <!--footer end-->
     </section>
     <!-- js placed at the end of the document so the pages load faster -->
