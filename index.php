@@ -52,6 +52,7 @@
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
         <!--main content start-->
+        <section id="main-content">
         <?php
 $uri = "/irs/";
 $uriWithIndex = "/irs/index.php";
@@ -60,17 +61,32 @@ if ($_SERVER['REQUEST_URI'] == $uri || $_SERVER['REQUEST_URI'] == $uriWithIndex)
  include TEMPLATE_FRONT . "/admin_content.php";
 }
 
+if (isset($_GET['profile'])) {
+    include TEMPLATE_BACK.'./profile.php';
+}
+if (isset($_GET['manage_admins'])) {
+    include TEMPLATE_BACK.'./manage_admins.php';
+}
+if (isset($_GET['manage_users'])) {
+    include TEMPLATE_BACK.'./manage_users.php';
+}
+if (isset($_GET['manage_category'])) {
+    include TEMPLATE_BACK.'./manage_category.php';
+}
 ?>
-
+        </section>
         <!--main content end-->
         <!--footer start-->
-        <?php include 'resources/templates/frontend/footer.php'?>
+        <?php //include 'resources/templates/frontend/footer.php'?>
         <!--footer end-->
     </section>
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="lib/jquery/jquery.min.js"></script>
 
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.js"></script>
+    <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
     <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
     <script src="lib/jquery.scrollTo.min.js"></script>
     <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>

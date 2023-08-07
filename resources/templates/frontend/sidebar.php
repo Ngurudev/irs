@@ -10,6 +10,12 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li class="mt">
+                <a class="sub-menu" href="index.php?profile">
+                    <i class="fa fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
             <li class="sub-menu">
                 <a href="javascript:;">
                     <i class="fa fa-users"></i>
@@ -17,7 +23,7 @@
                 </a>
                 <ul class="sub">
                     <li><a href="add_admin.php">Add Admins</a></li>
-                    <li><a href="manage_admins.php">Manage Admins</a></li>
+                    <li><a href="manage_admins">Manage Admins</a></li>
                 </ul>
             </li>
             <li class="sub-menu">
@@ -27,7 +33,7 @@
                 </a>
                 <ul class="sub">
                     <li><a href="calendar.html">Add User</a></li>
-                    <li><a href="manage_users.php">Manage Users</a></li>
+                    <li><a href="index.php?manage_users">Manage Users</a></li>
                 </ul>
             </li>
             <li class="sub-menu">
@@ -37,7 +43,7 @@
                 </a>
                 <ul class="sub">
                     <li><a href="blank.html">Add Category</a></li>
-                    <li><a href="login.html">Manage Categories</a></li>
+                    <li><a href="index.php?manage_category">Manage Categories</a></li>
                     <li><a href="404.html">404 Error</a></li>
                     <li><a href="500.html">500 Error</a></li>
                 </ul>

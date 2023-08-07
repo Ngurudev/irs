@@ -877,26 +877,70 @@ function adding_category_in_admin($category_title)
 
 //**************************** Showing in Admin Users*************************//
 
-function display_admin_users()
+function display_users()
 {
 
- $query = query(" SELECT *FROM admin");
+ $query = query(" SELECT *FROM users");
  confirm($query);
  $i = 0;
- $grade = 'C';
- $randomemID = 'IRS' . random_int(0, 1000);
+ $grade = 'A';
  while ($row = fetch_array($query)) {
+     $randomemID = 'IRSpayee' . random_int(200, 1000);
   $i += 1;
 
 //   $user_image = display_image($row['image']);
   $users = <<<DELIMETER
   <tr class="grade{$grade}">
-  <td>$i</td>
+  <td>{$i}</td>
   <td>{$randomemID}</td>
-  <td class="hidden-phone">{$row['name']}</td>
+  <td class="hidden-phone">{$row['fullname']}</td>
+  <td class="center hidden-phone">{$row['contact']}</td>
   <td class="center hidden-phone">{$row['email']}</td>
-  <td class="center hidden-phone">{$row['role']}</td>
-  <td class="center hidden-phone">{$row['role']}</td>
+  <td class="center hidden-phone">{$row['created_at']}</td>
+  <td class="center hidden-phone">{$row['address']}</td>
+  <td>
+      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+      <button class="btn btn-danger btn-xs"><i
+              class="fa fa-trash-o "></i></button>
+  </td>
+</tr>
+<script>
+    function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        sOut += '<tr><td>FullName:</td><td>'+ ' ' + aData[3] + '</td></tr>';
+        sOut += '<tr><td>Phone Number:</td><td>'+ ' ' + aData[4] + '</td></tr>';
+        sOut += '<tr><td>Address info:</td><td>'+ ' ' + aData[7] + '</td></td></tr>';
+        sOut += '</table>';
+
+        return sOut;
+    }
+</script>
+DELIMETER;
+  echo $users;
+ }
+
+}
+
+
+function display_category()
+{
+
+ $query = query(" SELECT *FROM payment_cat");
+ confirm($query);
+ $i = 0; 
+ $grade = 'A';
+ while ($row = fetch_array($query)) {
+     $randomemID = 'IRSpayee' . random_int(200, 1000);
+  $i += 1;
+$amount = number_format($row['amount']);
+//   $user_image = display_image($row['image']);
+  $users = <<<DELIMETER
+  <tr class="grade{$grade}">
+  <td>{$i}</td>
+  <td class="hidden-phone">{$row['category_name']}</td>
+  <td class="center hidden-phone">&#8358;{$amount}</td>
   <td class="center hidden-phone">{$row['created_at']}</td>
   <td>
       <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
@@ -905,11 +949,24 @@ function display_admin_users()
               class="fa fa-trash-o "></i></button>
   </td>
 </tr>
+<script>
+    function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        sOut += '<tr><td>FullName:</td><td>'+ ' ' + aData[3] + '</td></tr>';
+        sOut += '<tr><td>Phone Number:</td><td>'+ ' ' + aData[4] + '</td></tr>';
+        sOut += '<tr><td>Address info:</td><td>'+ ' ' + aData[7] + '</td></td></tr>';
+        sOut += '</table>';
+
+        return sOut;
+    }
+</script>
 DELIMETER;
   echo $users;
  }
 
 }
+
 
 //******************Adding User in Admin*************************//
 
