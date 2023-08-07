@@ -54,7 +54,7 @@
                     <span>Payments</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="payment_history.php">Payments History</a></li>
+                    <li><a href="index.php?payment_history">Payments History</a></li>
                 </ul>
             </li>
         </ul>
