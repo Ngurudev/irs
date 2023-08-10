@@ -31,80 +31,39 @@
     License: https://templatemag.com/license/
   ======================================================= -->
 </head>
-
-<body>
-    <section id="container">
-        <!-- **********************************************************************************************************************************************************
-        TOP BAR CONTENT & NOTIFICATIONS
-        *********************************************************************************************************************************************************** -->
-        <!--header start-->
-        <?php //include 'templates/frontend/header.php'?>
-        <!--header end-->
-        <!-- **********************************************************************************************************************************************************
-        MAIN SIDEBAR MENU
-        *********************************************************************************************************************************************************** -->
-        <!--sidebar start-->
-        <?php //include 'templates/frontend/sidebar.php'?>
-        <!--sidebar end-->
-        <!-- **********************************************************************************************************************************************************
-        MAIN CONTENT
-        *********************************************************************************************************************************************************** -->
-        <!--main content start-->
-       
-            <section class="wrapper">
-                <h3><i class="fa fa-angle-right"></i> Manage Users</h3>
-                <div class="row mb">
-                    <!-- page start-->
-                    <div class="content-panel">
-
-                        <div class="adv-table">
-                            <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered"
-                                id="hidden-table-info">
-
-                                <thead>
-                                    <tr>
-                                        <th>SN</th>
-                                        <th class="hidden-phone">Category Name</th>
-                                        <th class="hidden-phone">Amount</th>
-                                        <th class="hidden-phone">RegisteredDate</th>
-                                        <th class="hidden-phone">Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   <?php display_category();?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- page end-->
+<section id="container">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Manage Users</h3>
+        <div class="row mb">
+            <!-- page start-->
+            <div class="content-panel">
+                <div class="adv-table">
+                    <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered"
+                        id="hidden-table-info">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th class="hidden-phone">Category Name</th>
+                                <th class="hidden-phone">Amount</th>
+                                <th class="hidden-phone">RegisteredDate</th>
+                                <th class="hidden-phone">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php display_category();?>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- /row -->
-            </section>
-            <!-- /wrapper -->
-        </section>
-        <!-- /MAIN CONTENT -->
-        <!--main content end-->
-        <!--footer start-->
-     
-        <!--footer end-->
+            </div>
+            <!-- page end-->
+        </div>
+        <!-- /row -->
     </section>
     <!-- js placed at the end of the document so the pages load faster -->
     <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.js"></script>
     <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
     <!--script for this page-->
     <script type="text/javascript">
-    /* Formating function for row details */
-    // function fnFormatDetails(oTable, nTr) {
-    //     var aData = oTable.fnGetData(nTr);
-    //     var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-    //     sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
-    //     sOut += '<tr><td>Phone Number:</td><td>08066666660</td></tr>';
-    //     sOut += '<tr><td>Address info:</td><td>Ibrahim Geidam Street, Sabon Fegi </td></tr>';
-    //     sOut += '</table>';
-
-    //     return sOut;
-    // }
-
     $(document).ready(function() {
         /*
          * Insert a 'details' column to the table
@@ -153,6 +112,3 @@
         });
     });
     </script>
-</body>
-
-</html>
