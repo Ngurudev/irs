@@ -76,18 +76,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="gradeX">
-                                    <td>1</td>
-                                    <td>IRS42300</td>
-                                    <td class="hidden-phone">MK</td>
-                                    <td class="center hidden-phone">mk@irs.com</td>
-                                    <td class="center hidden-phone">&#8358; 5000</td>
-                                    <td class="center hidden-phone">Paid</td>
-                                    <td class="center hidden-phone">August</td>
-                                    <td class="center hidden-phone">irs22mk42300</td>
-                                    <td>
-                                        06/08/2023
-                                    </td>
+                            <?php display_payment_history()?>
                                 </tr>
                             </tbody>
                         </table>

@@ -10,6 +10,13 @@ function last_id()
  return mysqli_insert_id($connection);
 }
 
+function generateRandomString($length) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = substr(str_shuffle($characters), 0, $length);
+ 
+    return $randomString;
+ }
+
 function set_message($msg)
 {
  if (!empty($msg)) {
@@ -126,10 +133,10 @@ function phone_exist($phone)
 }
 
 //********************************Checking for Category *****************************//
-function category_exist($category_title)
+function staffID_exist($staffID)
 {
  extract($_POST);
- $sql = "SELECT id, category_title FROM categories WHERE category_title = '{$category_title}'";
+ $sql = "SELECT admin_id, staffID FROM admin WHERE staffID = '{$staffID}'";
  $result = query($sql);
  if (row_count($result) == 1) {
   return true;
@@ -455,240 +462,12 @@ function logged_in_admin()
 }
 
 //**********************User Information function***********************//
-function Userorders()
-{
- $email = $_SESSION['email'];
- $query1 = query(" SELECT  *FROM customers_users as a, orders as b WHERE a.id= b.user_id AND a.email = '{$email}'");
- confirm($query1);
- while ($row = fetch_array($query1)) {
-  $json_data = json_decode($row['ordersItems']);
-  if ($row['status'] == 1) {
-   $status = "Delivered";
-   $color = "text-success";
-  } else {
-   $status = " Not Delivered";
-   $color = "text-danger";
-  }
-
-  $product = <<<DELIMETER
-                <tr>
-                    <td>{$row['orderId']}</td>
-                    <td>{$json_data->product_title}</td>
-                    <td>{$json_data->items_quantity}</td>
-                    <td>&#8358;{$json_data->product_price}</td>
-                    <td>&#8358;{$json_data->sub}</td>
-                    <td>{$row['transaction_id']}</td>
-                    <td class="$color">{$status}</td>
-                    <td class="$color">{$row['oderedDate']}</td>
-                </tr>
-        DELIMETER;
-  echo $product;
- }
-}
-//**********************End User Information function***********************//
-
-function get_products_in_cat_page()
-{
- $query = query(" SELECT *FROM products as a, categories as b WHERE a.product_category_id= " . escape_string($_GET['id']) . "
-    AND b.id = " . escape_string($_GET['id']) . " AND product_quantity>=1 ");
- confirm($query);
- while ($row = fetch_array($query)) {
-//   echo "<pre>";
-//   // print_r($query);
-//   print_r($row);
-//   echo "</pre>";
-
-  //image fun
-  $product_image = display_image($row['product_image']);
-//end of imgfun
-
-  $product = <<<DELIMETER
-            <div class="col-lg-4 col-sm-6">
-            <div class="product-item">
-                <div class="pi-pic">
-                <a href="product.php?id={$row[0]}"><img src="../resources/uploads/$row[3]" alt=""></a>
-                    <div class="sale pp-sale">Sale</div>
-                    <div class="icon">
-                        <i class="icon_heart_alt"></i>
-                    </div>
-                    <ul>
-                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                    </ul>
-                </div>
-                <div class="pi-text">
-                    <div class="catagory-name">{$row['category_title']}</div>
-                    <a href="#">
-                        <h5>{$row['product_title']}</h5>
-                    </a>
-                    <div class="product-price">
-                    &#8358;{$row['product_price']}
-                        <span>&#8358;{$row['product_price']}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-DELIMETER;
-  echo $product;
- }
-}
-
-//get the product in shop
-function get_products_in_shop_page()
-{
- $query = query(" SELECT a.id, a.product_title, a.product_image,a.product_price,b.category_title FROM products as a, categories as b WHERE a.product_category_id=b.id AND product_quantity>=1");
- confirm($query);
-
- while ($row = fetch_array($query)) {
-  //image fun
-  $product_image = display_image($row['product_image']);
-  //end of imgfun
-
-  $product = <<<DELIMETER
-        <div class="col-lg-4 col-sm-6">
-            <div class="product-item">
-                <div class="pi-pic">
-                <a href="product.php?id={$row['id']}"><img src="../resources/{$product_image}" alt=""></a>
-                    <div class="sale pp-sale">Sale</div>
-                    <div class="icon">
-                        <i class="icon_heart_alt"></i>
-                    </div>
-                    <ul>
-                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                    </ul>
-                </div>
-                <div class="pi-text">
-                    <div class="catagory-name">{$row['category_title']}</div>
-                    <a href="#">
-                        <h5>{$row['product_title']}</h5>
-                    </a>
-                    <div class="product-price">
-                    &#8358;{$row['product_price']}
-                        <span>&#8358;{$row['product_price']}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        DELIMETER;
-  echo $product;
- }
-}
-
-// ***************WomenBanner***********************//
-function womenBanner()
-{
- $query = query(" SELECT a.id, a.product_title, a.product_image,a.product_price,b.category_title FROM products as a, categories as b WHERE a.product_category_id=4 AND product_quantity>=1");
- confirm($query);
-
- while ($row = fetch_array($query)) {
-  //image fun
-  $product_image = display_image($row['product_image']);
-  //end of imgfun
-
-  $amount = number_format($row['product_price']);
-
-  $product = <<<DELIMETER
-        <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="../resources/$product_image" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>{$row['product_title']}</h5>
-                            </a>
-                            <div class="product-price">
-                                &#8358;{$amount}
-                            </div>
-                        </div>
-            </div>
-        DELIMETER;
-  echo $product;
- }
-}
-
-//display orders
-function display_order()
-{
-
- $query = query("SELECT *FROM orders");
- confirm($query);
-
- while ($row = fetch_array($query)) {
-  $json_data = json_decode($row['ordersItems']);
-  $json_ret = json_decode(json_encode($json_data), true);
-
-  //
-
-  // <td>{$row[$json_data->product_ID]}</td>
-
-  $order = <<<ORDER
-        <tr>
-        <td>{$row['orderId']}</td>
-        <td>{$row['user_id']}</td>
-        <td>{$json_data->product_title}</td>
-        <td>{$json_data->items_quantity}</td>
-        <td>&#8358; {$json_data->product_price}</td>
-        <td>&#8358; {$json_data->sub}</td>
-        <td>{$row['transaction_id']}</td>
-        <td><a class="btn btn-danger" href="../../resources/templates/back/delete_orders.php?id={$row['orderId']}"><span class="glyphicon glyphicon-remove"></span>Delete</a></td>
-        </tr>
-
-ORDER;
-  echo $order;
- }
-
-}
-
-//----------------PRODUCTS IN ADMIN---------------------\\
-
 function display_image($picture)
 {
 
  global $uploads;
 
  return $uploads . DS . $picture;
-}
-
-function get_products_in_admin()
-{
- $query = query(" SELECT *FROM products");
- confirm($query);
-
- while ($row = fetch_array($query)) {
-  $product_image = display_image($row['product_image']);
-
-  $category = show_product_category_title($row['product_category_id']);
-
-  $product_in_admin = <<<DELIMETER
-
-          <tr>
-
-            <td>{$row['id']}</td>
-            <td>{$row['product_title']}</td>
-              <td><a href="index.php?edit_product&id={$row['id']}"><img width='80'height='80' src="../resources/{$product_image}" alt=""></a>
-            </td>
-            <td>{$category}</td>
-            <td>&#8358;{$row['product_price']}</td>
-            <td>{$row['product_quantity']}</td>
-            <td><a class="btn btn-danger" onclick="if (confirm('Are you sure you want to delete {$row['product_title']} ?')) commentDelete(1); return false" href="../resources/templates/backend/delete_product.php?id={$row['id']}"><span class="glyphicon glyphicon-remove">Delete</span></a></td>
-        </tr>
-
-DELIMETER;
-  echo $product_in_admin;
- }
-
 }
 
 //---------------- END OF PRODUCTS IN ADMIN---------------------\\
@@ -704,40 +483,6 @@ function show_product_category_title($product_category_id)
 
 }
 
-//---------------------Adding_product_in_admin--------------------------//
-function adding_product_in_admin()
-{
- extract($_POST);
- if (isset($_POST['publish'])) {
-
-  $product_title = escape_string($product_title);
-  $product_description = escape_string($product_description);
-  $product_price = escape_string($product_price);
-  $product_category = escape_string($product_category_id);
-  $product_short_desc = escape_string($product_short_desc);
-  $product_quantity = escape_string($product_quantity);
-  $product_burst = escape_string($product_burst);
-  $product_hip = escape_string($product_hip);
-  $product_lwirst = escape_string($product_lwirst);
-  $product_uwirst = escape_string($product_uwirst);
-  $product_flength = escape_string($product_flength);
-  $product_size = escape_string($product_size);
-  $product_image = $_FILES['file']['name'];
-  $image_temp_loca = $_FILES['file']['tmp_name'];
-  $images = new stdClass();
-  $images->img1 = $product_image;
-  $tojson = json_encode($images);
-
-  $query = query("INSERT INTO products(product_title, product_price, product_desc,  product_category_id, product_quantity, product_short_desc, product_image,size,product_images,burst,heap,full_length,upper_wirst,wirst_lower) VALUES('{$product_title}', '{$product_price}', '{$product_description}', '{$product_category}', '{$product_quantity}', '{$product_short_desc}', '{$product_image}','{$product_size}','{$tojson}','{$product_burst}','{$product_hip}','{$product_flength}','{$product_uwirst}','{$product_lwirst}')");
-  $last_id = last_id();
-  confirm($query);
-
-  redirect("index.php?view_products");
-  if (move_uploaded_file($image_temp_loca, IMAGE_DIRECTORY . DS . $product_image)) {
-   set_message("New Product with id {$last_id} was Added");
-  }
- }
-}
 
 ///***********option to select categories in add prod through admin*************//
 
@@ -804,40 +549,76 @@ function update_product()
 
 //****************************Show Categories In Admin*************************//
 
-function show_categories_in_admin()
-{
-
- $query = query(" SELECT *FROM categories  ORDER BY category_title");
- confirm($query);
-
- while ($row = fetch_array($query)) {
-  $categories = <<<DELIMETER
-        <tr>
-            <td>{$row['id']}</td>
-            <td>{$row['category_title']}</td>
-            <td></td>
-            <td><a class="btn btn-danger" href="../../resources/templates/backend/delete_cat.php?id={$row['id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
-        </tr>
-DELIMETER;
-  echo $categories;
- }
-}
-
 //**********************validating user login function***********************//
 
-function validate_adding_category()
+// function validate_adding_category()
+// {
+//  extract($_POST);
+//  $erorrs = [];
+//  if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+//   $category_title = clean($category_title);
+
+//   if (empty($category_title)) {
+//    $erorrs[] = "Category field cannot be empty";
+//   }
+//   if (category_exist($category_title)) {
+//    $erorrs[] = " This Category Already Exist!";
+//   }
+//   if (!empty($erorrs)) {
+//    foreach ($erorrs as $erorr) {
+//     //display erorr message//
+//     echo validation_erorr($erorr);
+//    }
+//   } else {
+//    if (adding_category_in_admin($category_title)) {
+//     redirect("index.php?add_category");
+//    } else {
+//     echo validation_erorr(" Please Try Again!");
+//    }
+//   }
+//  }
+// }
+
+// //**************************** IRS Adding Categories In Admin*************************//
+// function adding_category_in_admin($category_title)
+// {
+
+//  extract($_POST);
+//  if (isset($add_category)) {
+//   $category_title = escape_string($category_title);
+//   if (category_exist($category_title)) {
+//    return false;
+//   } else {
+//    $query = query("INSERT INTO categories (category_title) VALUES('{$category_title}') ");
+//    confirm($query);
+//    $last_id = last_id();
+//    set_message("<p class='text-success text-center'> New Category with id {$last_id} was Added</p>");
+//    return true;
+//   }
+
+//  }
+
+// }
+
+// am coming
+function validate_adding_ADMIN()
 {
  extract($_POST);
  $erorrs = [];
+ $password = generateRandomString(8);
  if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-  $category_title = clean($category_title);
+  $staffID = clean($staffid);
+  $password = clean($password);
+  $department = clean($department);
+  $role = clean($role);
 
-  if (empty($category_title)) {
-   $erorrs[] = "Category field cannot be empty";
+  if (empty($staffID)) {
+   $erorrs[] = "staffID field cannot be empty";
   }
-  if (category_exist($category_title)) {
-   $erorrs[] = " This Category Already Exist!";
+  if (staffID_exist($staffID)) {
+   $erorrs[] = " This staffID Already Exist!";
   }
   if (!empty($erorrs)) {
    foreach ($erorrs as $erorr) {
@@ -845,8 +626,8 @@ function validate_adding_category()
     echo validation_erorr($erorr);
    }
   } else {
-   if (adding_category_in_admin($category_title)) {
-    redirect("index.php?add_category");
+   if (adding_admin_inAdmindashboard($staffID,$password,$role, $department)) {
+    redirect("index.php?manage_admins");
    } else {
     echo validation_erorr(" Please Try Again!");
    }
@@ -854,29 +635,75 @@ function validate_adding_category()
  }
 }
 
-//****************************Adding Categories In Admin*************************//
-function adding_category_in_admin($category_title)
+//**************************** IRS Adding Categories In Admin*************************//
+function adding_admin_inAdmindashboard($staffID, $password,$role, $department)
 {
 
  extract($_POST);
- if (isset($add_category)) {
-  $category_title = escape_string($category_title);
-  if (category_exist($category_title)) {
+ if (isset($add_admin)) {
+  $staffID = escape_string($staffID);
+  if (staffID_exist($staffID)) {
    return false;
   } else {
-   $query = query("INSERT INTO categories (category_title) VALUES('{$category_title}') ");
+   $query = query("INSERT INTO admin (staffID, password, dept, role) VALUES('{$staffID}','{$password}','{$department}','{$role}') ");
    confirm($query);
    $last_id = last_id();
-   set_message("<p class='text-success text-center'> New Category with id {$last_id} was Added</p>");
+   set_message("<p class='text-success text-center'> New Staff with id {$last_id} was Added</p>");
    return true;
   }
 
  }
 
 }
-
 //**************************** Showing in Admin Users*************************//
+//**************************** ALL Admin Users********************************//
 
+function display_admin_users()
+{
+
+ $query = query(" SELECT *FROM admin");
+ confirm($query);
+ $i = 0;
+ $grade = 'A';
+ while ($row = fetch_array($query)) {
+     $randomemID = 'IRS' . random_int(200, 1000);
+  $i += 1;
+
+//   $user_image = display_image($row['image']);
+  $users = <<<DELIMETER
+  <tr class="grade{$grade}">
+  <td>{$i}</td>
+  <td>{$randomemID}</td>
+  <td class="hidden-phone">{$row['name']}</td>
+  <td class="center hidden-phone">{$row['email']}</td>
+  <td class="center hidden-phone">{$row['dept']}</td>
+  <td class="center hidden-phone">{$row['role']}</td>
+  <td class="center hidden-phone">{$row['created_at']}</td>
+  <td>
+      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+      <button class="btn btn-danger btn-xs"><i
+              class="fa fa-trash-o "></i></button>
+  </td>
+</tr>
+<script>
+    function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        sOut += '<tr><td>Staff ID :</td><td>'+ ' ' + aData[2] + '</td></tr>';
+        sOut += '<tr><td>FullName :</td><td>'+ ' ' + aData[3] + '</td></tr>';
+        sOut += '<tr><td>Role -> Dept:</td><td>'+ ' ' + aData[5] + ' -> ' + aData[6] + '</td></td></tr>';
+        sOut += '</table>';
+
+        return sOut;
+    }
+</script>
+DELIMETER;
+  echo $users;
+ }
+
+}
+//************** end of  admin users *************/
 function display_users()
 {
 
@@ -922,6 +749,7 @@ DELIMETER;
  }
 
 }
+//************** end of users *************/
 
 
 function display_category()
@@ -966,6 +794,56 @@ DELIMETER;
  }
 
 }
+//************** end of categories *************/
+
+function display_payment_history()
+{
+
+    $query = query(" SELECT *FROM ((payment_tbl 
+    INNER JOIN users ON payment_tbl.user_id = users.user_id)
+    INNER JOIN payment_cat ON payment_tbl.category_id = payment_cat.category_id) ");
+ confirm($query);
+
+//  echo "<prev>";
+//  print_r($query);
+//  echo "</pre>";
+
+ $i = 0; 
+ $grade = 'A';
+ while ($row = fetch_array($query)) {
+     $randomemID = 'IRSpayee' . random_int(200, 1000);
+  $i += 1;
+$amount = number_format($row['amount']);
+//   $user_image = display_image($row['image']);
+  $users = <<<DELIMETER
+  <tr class="gradeX">
+  <td>{$i}</td>
+  <td>{$row['username']}</td>
+  <td class="hidden-phone">{$row['fullname']}</td>
+  <td class="center hidden-phone">{$row['email']}</td>
+  <td class="center hidden-phone">&#8358;{$amount}</td>
+  <td class="center hidden-phone">{$row['status']}</td>
+  <td class="center hidden-phone">{$row['month']}</td>
+  <td class="center hidden-phone">{$row['transaction_id']}</td>
+  <td class="center hidden-phone">{$row['payment_date']}</td>
+<script>
+    function fnFormatDetails(oTable, nTr) {
+        var aData = oTable.fnGetData(nTr);
+        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        sOut += '<tr><td>FullName:</td><td>'+ ' ' + aData[3] + '</td></tr>';
+        sOut += '<tr><td>Email:</td><td>'+ ' ' + aData[4] + '</td></tr>';
+        sOut += '<tr><td>Date:</td><td>'+ ' ' + aData[7] + '</td></td></tr>';
+        sOut += '</table>';
+
+        return sOut;
+    }
+</script>
+DELIMETER;
+  echo $users;
+ }
+
+}
+//************** end of categories *************/
 
 
 //******************Adding User in Admin*************************//

@@ -9,13 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <title>Dashio - Bootstrap Admin Template</title>
+    <title>IRS Federal Inland Revenue</title>
 
     <!-- Favicons -->
     <link href="img/favicon.png" rel="icon">
     <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap-fileupload/bootstrap-fileupload.css" />
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--external css-->
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -73,6 +74,15 @@ if (isset($_GET['manage_users'])) {
 if (isset($_GET['manage_category'])) {
     include TEMPLATE_BACK.'./manage_category.php';
 }
+if (isset($_GET['payment_history'])) {
+    include TEMPLATE_BACK.'./payment_history.php';
+}
+if (isset($_GET['add_admin'])) {
+    include TEMPLATE_BACK.'./add_admin.php';
+}
+if (isset($_GET['add_user'])) {
+    include TEMPLATE_BACK.'./add_user.php';
+}
 ?>
         </section>
         <!--main content end-->
@@ -84,6 +94,7 @@ if (isset($_GET['manage_category'])) {
     <script src="lib/jquery/jquery.min.js"></script>
 
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
     <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.js"></script>
     <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
     <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>

@@ -1,4 +1,3 @@
-<?php require_once './resources/config.php'?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,21 +38,21 @@
         TOP BAR CONTENT & NOTIFICATIONS
         *********************************************************************************************************************************************************** -->
         <!--header start-->
-        <?php include 'resources/templates/frontend/header.php'?>
+        <?php //include 'templates/frontend/header.php'?>
         <!--header end-->
         <!-- **********************************************************************************************************************************************************
         MAIN SIDEBAR MENU
         *********************************************************************************************************************************************************** -->
         <!--sidebar start-->
-        <?php include 'resources/templates/frontend/sidebar.php'?>
+        <?php //include 'templates/frontend/sidebar.php'?>
         <!--sidebar end-->
         <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
         <!--main content start-->
-        <section id="main-content">
+       
             <section class="wrapper">
-                <h3><i class="fa fa-angle-right"></i> Manage Admins</h3>
+                <h3><i class="fa fa-angle-right"></i> Manage Users</h3>
                 <div class="row mb">
                     <!-- page start-->
                     <div class="content-panel">
@@ -63,21 +62,20 @@
                                 id="hidden-table-info">
 
                                 <thead>
-                                    <tr>
-                                        <th>SN</th>
-                                        <th>Staff ID</th>
-                                        <th class="hidden-phone">Names</th>
-                                        <th class="hidden-phone">Email</th>
-                                        <th class="hidden-phone">Department</th>
-                                        <th class="hidden-phone">Role</th>
-                                        <th class="hidden-phone">HiredDate</th>
-                                        <th class="hidden-phone">Edit</th>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Staff ID</th>
+                                    <th class="hidden-phone">Names</th>
+                                    <th class="hidden-phone">Email</th>
+                                    <th class="hidden-phone">Department</th>
+                                    <th class="hidden-phone">Role</th>
+                                    <th class="hidden-phone">HiredDate</th>
+                                    <th class="hidden-phone">Edit</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php display_admin_users()?>
-
+                                   <?php display_admin_users();?>
                                 </tbody>
                             </table>
                         </div>
@@ -91,32 +89,25 @@
         <!-- /MAIN CONTENT -->
         <!--main content end-->
         <!--footer start-->
+     
         <!--footer end-->
     </section>
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="lib/jquery.scrollTo.min.js"></script>
-    <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
-    <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
-    <!--common script for all pages-->
-    <script src="lib/common-scripts.js"></script>
     <!--script for this page-->
     <script type="text/javascript">
     /* Formating function for row details */
-    function fnFormatDetails(oTable, nTr) {
-        var aData = oTable.fnGetData(nTr);
-        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-        sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
-        sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
-        sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
-        sOut += '</table>';
+    // function fnFormatDetails(oTable, nTr) {
+    //     var aData = oTable.fnGetData(nTr);
+    //     var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+    //     sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
+    //     sOut += '<tr><td>Phone Number:</td><td>08066666660</td></tr>';
+    //     sOut += '<tr><td>Address info:</td><td>Ibrahim Geidam Street, Sabon Fegi </td></tr>';
+    //     sOut += '</table>';
 
-        return sOut;
-    }
+    //     return sOut;
+    // }
 
     $(document).ready(function() {
         /*
@@ -156,7 +147,7 @@
             var nTr = $(this).parents('tr')[0];
             if (oTable.fnIsOpen(nTr)) {
                 /* This row is already open - close it */
-                this.src = "lib/advanced-datatable/media/images/details_open.png";
+                this.src = "lib/advanced-datatable/images/details_open.png";
                 oTable.fnClose(nTr);
             } else {
                 /* Open this row */

@@ -22,8 +22,8 @@
                     <span>Admins</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="add_admin.php">Add Admins</a></li>
-                    <li><a href="manage_admins">Manage Admins</a></li>
+                    <li><a href="index.php?add_admin">Add Admins</a></li>
+                    <li><a href="index.php?manage_admins">Manage Admins</a></li>
                 </ul>
             </li>
             <li class="sub-menu">
@@ -32,7 +32,7 @@
                     <span>Users</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="calendar.html">Add User</a></li>
+                    <li><a href="index.php?add_user">Add User</a></li>
                     <li><a href="index.php?manage_users">Manage Users</a></li>
                 </ul>
             </li>
